@@ -18,13 +18,17 @@ export class BasePage {
 
     // Method to check display elements
     async isDisplayed(selector: string, timeout: number = 10000): Promise<boolean> {
-        const element = await $(selector);
-        await element.waitForDisplayed({ timeout });
-        return await element.isDisplayed();
+        try {
+            const element = await $(selector);
+            return await element.waitForDisplayed ({ timeout});
+            
+        } catch {
+            return false
+        }
     }
 
+    // Method pause 
     async pause(milliseconds: number): Promise<void> {
         await browser.pause(milliseconds);
     }
-
 }
