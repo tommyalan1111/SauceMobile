@@ -1,0 +1,37 @@
+import path from 'path';
+
+export const config: WebdriverIO.Config = {
+  // Chỉ định đường dẫn chứa các file test suite (.ts)
+  specs: [
+    './tests/**/*.ts'
+  ],
+  maxInstances: 1,
+  capabilities: [{
+  platformName: 'Android',
+  'appium:automationName': 'UiAutomator2',
+  'appium:deviceName': 'Android Emulator',
+  // Bỏ 'appium:app', thay bằng Package Name và Activity của Sauce Labs My Demo App
+  'appium:appPackage': 'com.saucelabs.mydemoapp.rn',
+  'appium:appActivity': 'com.saucelabs.mydemoapp.rn.MainActivity',
+  'appium:noReset': true, // Giữ nguyên trạng thái app, không gỡ ra cài lại
+  'appium:newCommandTimeout': 3600,
+}],
+  logLevel: 'info',
+  bail: 0,
+  waitforTimeout: 10000,
+  connectionRetryTimeout: 120000,
+  connectionRetryCount: 3,
+  
+  // Cấu hình kết nối tới Appium Server
+  hostname: '127.0.0.1',
+  port: 4723,
+  path: '/',
+
+  // Khai báo Framework sử dụng
+  framework: 'mocha',
+  reporters: ['spec'],
+  mochaOpts: {
+    ui: 'bdd',
+    timeout: 60000
+  }
+};
