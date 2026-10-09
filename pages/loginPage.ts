@@ -12,4 +12,9 @@ export class LoginPage extends BasePage {
         await this.setValue(this.passwordInput, password);
         await this.click(this.loginButton);
     }
+
+    async isErrorMessageDisplayed(timeout:number = 5000): Promise<boolean>{
+        const errorMessageSelector = '~generic-error-message';
+        return await this.isDisplayed(errorMessageSelector,timeout);
+    }
 }

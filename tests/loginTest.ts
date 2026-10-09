@@ -1,6 +1,7 @@
 import { MenuPage } from '../pages/menuPage';
 import { LoginPage } from '../pages/loginPage';
 import {auth_data} from '../auth/auth';
+import { expect } from '@wdio/globals';
 
 describe('Login Test Suite', () => {
     let menuPage: MenuPage;
@@ -22,24 +23,32 @@ describe('Login Test Suite', () => {
         const { username, password } = auth_data.INVALID_PASSWORD_USER;
         await loginPage.login(username, password);
         // Add assertions to verify failed login
+        const isErrorDisplayed = await loginPage.isErrorMessageDisplayed();
+        expect(isErrorDisplayed).toBe(true);
     });
 
     it('TC2: Should fail login with locked username', async () => {
         const { username, password } = auth_data.LOCKED_USERNAME_USER;
         await loginPage.login(username, password);
         // Add assertions to verify failed login
+        const isErrorDisplayed = await loginPage.isErrorMessageDisplayed();
+        expect(isErrorDisplayed).toBe(true);
     });
 
     it('TC3: Should fail login with missing username', async () => {
         const { username, password } = auth_data.MISSING_USER;
         await loginPage.login(username, password);
         // Add assertions to verify failed login
+        const isErrorDisplayed = await loginPage.isErrorMessageDisplayed();
+        expect(isErrorDisplayed).toBe(true);
     });
 
     it('TC4: Should fail login with missing password', async () => {
         const { username, password } = auth_data.MISSING_PASSWORD;
         await loginPage.login(username, password);
         // Add assertions to verify failed login
+        const isErrorDisplayed = await loginPage.isErrorMessageDisplayed();
+        expect(isErrorDisplayed).toBe(true);
     });
 
 

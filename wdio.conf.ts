@@ -29,9 +29,19 @@ export const config: WebdriverIO.Config = {
 
   // Khai báo Framework sử dụng
   framework: 'mocha',
-  reporters: ['spec'],
+  reporters: [
+    'spec',
+    ['allure', {
+      outputDir: 'allure-results',
+      disableWebdriverStepsReporting: true,
+      disableWebdriverScreenshotsReporting: false, // Tự động đính kèm ảnh chụp màn hình khi fail
+    }]
+  ],
   mochaOpts: {
     ui: 'bdd',
     timeout: 60000
   }
+
+
+  
 };
