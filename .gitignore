@@ -1,1 +1,15 @@
-node_modules
+# Authentication & Credentials State
+/auth/
+auth.ts
+auth.json
+*.env
+.env.*
+
+# Allure & Test Reports (không nên push report thô lên git)
+allure-results/
+allure-report/
+.allure/
+
+# Node modules & Logs
+node_modules/
+npm-debug.log*

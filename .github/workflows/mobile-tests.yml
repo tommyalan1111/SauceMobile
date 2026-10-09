@@ -1,0 +1,63 @@
+name: Mobile Automation Tests
+
+on:
+  push:
+    branches: [ feature/login-logout, main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  android-tests:
+    runs-on: macos-13 # Dùng macos runner vì hỗ trợ Hardware Acceleration cho Android Emulator rất tốt
+    
+    steps:
+      # 1. Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      # 3. Setup Java (Bắt buộc cho Appium & Android SDK)
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # 4. Install dependencies
+      - name: Install Dependencies
+        run: npm ci
+
+      # 5. Build/Install Appium Driver
+      - name: Install Appium UiAutomator2 Driver
+        run: npx appium driver install uiautomator2
+
+      # 6. Run Android Emulator & Execute Tests
+      - name: Run Android Tests on Emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          target: default
+          arch: x86_64
+          profile: Nexus 6
+          script: npm run test:login
+
+      # 7. Generate Allure Report
+      - name: Install Allure CLI & Generate Report
+        if: always() # Luôn chạy kể cả khi test fail
+        run: |
+          npm install -g allure-commandline
+          npm run report:generate
+
+      # 8. Upload Allure Report làm Artifacts để tải về xem
+      - name: Upload Allure Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-report/

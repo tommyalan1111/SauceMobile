@@ -7,15 +7,13 @@ export const config: WebdriverIO.Config = {
   ],
   maxInstances: 1,
   capabilities: [{
-  platformName: 'Android',
-  'appium:automationName': 'UiAutomator2',
-  'appium:deviceName': 'Android Emulator',
-  // Bỏ 'appium:app', thay bằng Package Name và Activity của Sauce Labs My Demo App
-  'appium:appPackage': 'com.saucelabs.mydemoapp.rn',
-  'appium:appActivity': 'com.saucelabs.mydemoapp.rn.MainActivity',
-  'appium:noReset': true, // Giữ nguyên trạng thái app, không gỡ ra cài lại
-  'appium:newCommandTimeout': 3600,
-}],
+    platformName: 'Android',
+    'appium:automationName': 'UiAutomator2',
+    // Dùng path.join để tự tương thích cả Windows (\) lẫn Linux/Mac (/)
+    'appium:app': path.join(process.cwd(), 'apps', 'SauceMobile.apk'),
+    'appium:appWaitActivity': '*',
+    'appium:newCommandTimeout': 240,
+  }],
   logLevel: 'info',
   bail: 0,
   waitforTimeout: 10000,

@@ -2,6 +2,7 @@ import { MenuPage } from '../pages/menuPage';
 import { LoginPage } from '../pages/loginPage';
 import {auth_data} from '../auth/auth';
 import { expect } from '@wdio/globals';
+import { testData } from '../config/testData';
 
 describe('Login Test Suite', () => {
     let menuPage: MenuPage;
@@ -21,7 +22,7 @@ describe('Login Test Suite', () => {
 
     it('TC1: Should fail login with invalid password', async () => {
         const { username, password } = auth_data.INVALID_PASSWORD_USER;
-        await loginPage.login(username, password);
+        await loginPage.login(testData.INVALID_USER.username, testData.INVALID_USER.password);
         // Add assertions to verify failed login
         const isErrorDisplayed = await loginPage.isErrorMessageDisplayed();
         expect(isErrorDisplayed).toBe(true);
@@ -29,7 +30,7 @@ describe('Login Test Suite', () => {
 
     it('TC2: Should fail login with locked username', async () => {
         const { username, password } = auth_data.LOCKED_USERNAME_USER;
-        await loginPage.login(username, password);
+        await loginPage.login(testData.LOCKED_USER.username, testData.LOCKED_USER.password);
         // Add assertions to verify failed login
         const isErrorDisplayed = await loginPage.isErrorMessageDisplayed();
         expect(isErrorDisplayed).toBe(true);

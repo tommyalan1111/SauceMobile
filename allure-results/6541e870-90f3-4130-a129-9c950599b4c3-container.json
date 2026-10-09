@@ -1,1 +1,0 @@
-{"uuid":"6541e870-90f3-4130-a129-9c950599b4c3","name":"\"before all\" hook for Login Test Suite","children":["5abbc484-ace7-4849-b9ac-0f34f4423496"],"befores":[{"status":"passed","statusDetails":{},"stage":"finished","steps":[],"attachments":[],"parameters":[],"start":1791545204560,"name":"\"before all\" hook for Login Test Suite","stop":1791545204561}],"afters":[]}
